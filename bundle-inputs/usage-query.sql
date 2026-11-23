@@ -1,0 +1,14 @@
+-- Usage rows for the news-image-20261123 build session and its
+-- review sessions. The query is the one bundle --help prints
+-- (step 1), with the model joined in. Run it with the muse.db tool
+-- AFTER the sessions have ended: Muse writes a message's usage row
+-- when the message is delivered, and a session's row appears only
+-- once the session ends.
+-- Build session id: c51541d4-fa34-4472-baea-9cc6d5c52780
+-- Review sessions (round 1): design 0d6f444b-c764-405b-84b4-2c06ff10a1ca,
+-- comprehension fdcbd4e6-47e4-4915-9193-3c0ce9812e3a,
+-- structural 3554ce4e-8a18-41a5-b76d-74f14ddcca97.
+-- Review sessions (round 2): design 7a4ac448-f0cd-4170-b3af-6a893b496a25,
+-- comprehension 1c023d9c-b400-4985-b0f1-4f2a6fb2507a,
+-- structural 2de50fb9-3fb2-4a3c-8e6f-e3b6ebf9bdbc.
+SELECT u.agent_id AS agent_id, u.message_id AS message_id, u.created_at AS created_at, u.input_tokens AS input_tokens, u.output_tokens AS output_tokens, a.model AS model FROM agent.agent_message_token_usage u JOIN agent.agents a ON a.agent_id = u.agent_id WHERE u.agent_id IN ('c51541d4-fa34-4472-baea-9cc6d5c52780', '0d6f444b-c764-405b-84b4-2c06ff10a1ca', 'fdcbd4e6-47e4-4915-9193-3c0ce9812e3a', '3554ce4e-8a18-41a5-b76d-74f14ddcca97', '7a4ac448-f0cd-4170-b3af-6a893b496a25', '1c023d9c-b400-4985-b0f1-4f2a6fb2507a', '2de50fb9-3fb2-4a3c-8e6f-e3b6ebf9bdbc') ORDER BY u.created_at DESC LIMIT 500
